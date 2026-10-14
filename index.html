@@ -82,7 +82,7 @@ h2{font-size:clamp(30px,5vw,48px)}
 .tl.em{font-family:var(--f-emoji);font-size:calc(var(--t) * .56);line-height:1}
 .tl.em svg{width:62%;height:auto}
 .eq{display:flex;align-items:center;gap:12px;font-family:var(--f-display);font-size:24px;color:#8C7552}
-.eq .or{font-size:20px;color:#E23B3B;letter-spacing:.04em}
+.eq .or{font-size:15px;color:#E23B3B}
 .big-title{font-size:clamp(52px,11vw,124px)}
 .big-title span{display:inline-block}
 .big-title .hl{background:linear-gradient(transparent 58%,#FFCB45 58%,#FFCB45 90%,transparent 90%);padding-inline:.06em}
@@ -117,7 +117,7 @@ h2{font-size:clamp(30px,5vw,48px)}
 .exi{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-display);font-size:clamp(17px,2.2vw,20px);background:var(--card);border-radius:999px;padding:6px 16px 6px 10px}
 .exi .em{font-family:var(--f-emoji);font-size:1.4em;line-height:1;display:inline-grid;place-items:center}
 .exi .em svg{width:1em;height:1em}
-.exm .or{font-family:var(--f-display);font-size:15px;color:var(--em)}
+.exm .or{font-family:var(--f-display);font-size:12px;color:var(--em)}
 .ex .sent{font-family:var(--f-display);font-size:clamp(18px,2.4vw,22px)}
 .reveal{border:2px solid var(--sky-deep);background:var(--card);border-radius:999px;padding:6px 18px;font-family:var(--f-display);font-size:17px}
 .answer-tip{margin:0;font-family:var(--f-display);font-size:clamp(17px,2.2vw,20px);color:var(--em);background:var(--card);border:2px solid var(--pink);border-radius:999px;padding:8px 22px;text-align:center}
@@ -136,7 +136,7 @@ h2{font-size:clamp(30px,5vw,48px)}
 .mean .no{position:absolute;top:-16px;left:50%;transform:translateX(-50%);width:34px;height:34px;border-radius:50%;background:var(--pink);font-family:var(--f-display);font-size:18px;display:grid;place-items:center}
 .mean .pic{width:100%;aspect-ratio:4/3;max-height:150px;background:var(--card);border-radius:12px;display:grid;place-items:center;font-family:var(--f-emoji);font-size:clamp(56px,8vw,78px);line-height:1;position:relative;border-top:10px solid var(--card)}
 .mean .pic::before{content:"";position:absolute;top:-10px;left:6px;right:6px;height:7px;background:repeating-linear-gradient(90deg,#B7C3CF 0 2px,transparent 2px 8px)}
-.mean .pic svg{width:58%;height:auto}
+.mean .pic svg{width:1em;height:1em}
 .mean .lab{font-family:var(--f-display);font-size:clamp(18px,2.4vw,22px);text-align:center}
 .mean .eg{font-size:14px;color:var(--ink-soft);text-align:center;margin-top:-6px}
 
@@ -272,7 +272,7 @@ html.view-m .app{display:none}
 
 /* 그림 카드: 이모지 또는 ART 키(이모지가 없는 그림) */
 const ART={
-  belly:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 6C14 20 12 34 16 46C19 54 26 58 32 58C38 58 45 54 48 46C52 34 50 20 46 6" fill="#FFD9C2" stroke="#1F2A37" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 44H50" stroke="#1F2A37" stroke-width="3" stroke-linecap="round"/><path d="M15 44C15 52 22 60 32 60C42 60 49 52 49 44Z" fill="#2E3A48"/><path d="M29 30C30 33 34 33 35 30" fill="none" stroke="#1F2A37" stroke-width="2.6" stroke-linecap="round"/></svg>',
+  belly:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 46H44V62H20Z" fill="#2E3A48" stroke="#1F2A37" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="32" cy="34" rx="27" ry="19" fill="#FFD9C2" stroke="#1F2A37" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 3H45V18C41 16 37 15 32 15C27 15 23 16 19 18Z" fill="#5BB8F2" stroke="#1F2A37" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 9H45" stroke="#FFFFFF" stroke-width="2.4"/><path d="M14 27C15 23 17 21 20 19" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/><path d="M30 36C31 38.5 33 38.5 34 36" fill="none" stroke="#1F2A37" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 30L1 28M5 36H1M59 30L63 28M59 36H63" stroke="#F28C9C" stroke-width="2.4" stroke-linecap="round"/></svg>',
   glue:'<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="22" width="20" height="36" rx="4" fill="#5BB8F2" stroke="#1F2A37" stroke-width="3"/><rect x="22" y="34" width="20" height="10" fill="#FFFFFF" stroke="#1F2A37" stroke-width="3"/><path d="M24 22V14C24 10 27 8 32 8C37 8 40 10 40 14V22" fill="#FFF9EC" stroke="#1F2A37" stroke-width="3"/><rect x="20" y="54" width="24" height="6" rx="2" fill="#2E8FD6" stroke="#1F2A37" stroke-width="3"/></svg>',
 };
 // 연습 게임 단어
@@ -311,7 +311,7 @@ const EXAMPLES=[
   {w:"배",m:[["🍐","먹는 배"],["🚢","타는 배"],["@belly","신체 부위 배"]]},
   {w:"쓰다",m:[["✏️","글을 쓰다"],["🧢","모자를 쓰다"],["☕","맛이 쓰다"]]},
 ];
-const exHTML=e=>`<span class="exw">${e.w}</span><span class="arrow">→</span><span class="exm">${e.m.map(([p,l])=>`<span class="exi"><span class="em">${pic(p)}</span>${l}</span>`).join("<span class=\"or\">OR</span>")}</span>`;
+const exHTML=e=>`<span class="exw">${e.w}</span><span class="arrow">→</span><span class="exm">${e.m.map(([p,l])=>`<span class="exi"><span class="em">${pic(p)}</span>${l}</span>`).join("<span class=\"or\">or</span>")}</span>`;
 /* 체험 모드(?trial=1): 2번 문제까지만 풀고 안내 화면으로 끝남 */
 const TRIAL=new URLSearchParams(location.search).has('trial');
 const roundIdx=()=>TRIAL?[0,1]:ROUNDS.map((_,k)=>k);
@@ -348,7 +348,7 @@ const josa=w=>{const c=w.charCodeAt(w.length-1)-0xAC00;return c>=0&&c<=11171?(c%
 
 const VIEWS={
   title:()=>`<div class="screen title-wrap">
-    <div class="eq" aria-label="공은 차는 공 또는 숫자 공"><span class="tl">공</span><span>=</span><span class="tl v em">⚽</span><span class="or">OR</span><span class="tl v em">0️⃣</span></div>
+    <div class="eq" aria-label="공은 차는 공 또는 숫자 공"><span class="tl">공</span><span>=</span><span class="tl v em">⚽</span><span class="or">or</span><span class="tl v em">0️⃣</span></div>
     <h1 class="big-title"><span class="hl">동상이몽</span><br><span>그림 퀴즈</span></h1>
     <button class="start" type="button" data-go="1">게임 시작</button>
   </div>`,
