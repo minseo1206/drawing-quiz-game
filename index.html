@@ -315,8 +315,8 @@ const exHTML=e=>`<span class="exw">${e.w}</span><span class="arrow">→</span><s
 /* 체험 모드(?trial=1): 2번 문제까지만 풀고 안내 화면으로 끝남 */
 const TRIAL=new URLSearchParams(location.search).has('trial');
 const roundIdx=()=>TRIAL?[0,1]:ROUNDS.map((_,k)=>k);
-// 화면 순서: 표지 → 규칙 → 동음이의어 → 연습 게임 → 본 게임 안내 → 라운드 → 마무리
-const screens=()=>['title','rules','concept','warm','ready',...roundIdx().map(k=>'r'+k),TRIAL?'trialEnd':'end'];
+// 화면 순서: 표지 → 규칙 → 동음이의어 → 본 게임 안내 → 연습 게임 → 라운드 → 마무리
+const screens=()=>['title','rules','concept','ready','warm',...roundIdx().map(k=>'r'+k),TRIAL?'trialEnd':'end'];
 
 let S={i:0,prep:{},rev:{},res:{},cheered:{},ex2:false};
 const $=s=>document.querySelector(s);
