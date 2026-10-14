@@ -93,7 +93,7 @@ h2{font-size:clamp(30px,5vw,48px)}
 .rule-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;width:100%}
 @media (max-width:640px){.rule-row{grid-template-columns:minmax(0,1fr)}}
 .rules{display:grid;gap:14px;min-width:0;align-content:center}
-.prep{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:12px;background:var(--pink);border-color:#FFB8C2;min-width:200px}
+.prep{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:12px;background:#FFF0F2;border-color:#FFD9DF;min-width:200px}
 .prep-t{font-family:var(--f-display);font-size:20px;color:#B23A50}
 .prep-list{list-style:none;margin:0;padding:0;display:grid;gap:10px;width:100%}
 .prep-c{display:flex;align-items:center;gap:10px;background:var(--card);border-radius:14px;padding:10px 16px;font-family:var(--f-display);font-size:20px;cursor:pointer}
@@ -105,7 +105,7 @@ h2{font-size:clamp(30px,5vw,48px)}
 .prep-c:has(input:checked){color:var(--ink-soft)}
 .prep-c input:focus-visible+.box{outline:3px solid var(--sky-deep);outline-offset:2px}
 .rule{display:flex;gap:16px;align-items:center;font-size:clamp(17px,2.3vw,22px);line-height:1.5}
-.rule b{font-family:var(--f-display);font-weight:400;flex:none;min-width:52px;height:40px;border-radius:10px;background:var(--pink);display:grid;place-items:center;font-size:20px}
+.rule b{font-family:var(--f-display);font-weight:400;flex:none;min-width:52px;height:40px;border-radius:10px;background:#FFEEF1;display:grid;place-items:center;font-size:20px}
 .rule .txt{min-width:0}
 .chip{display:inline-flex;align-items:center;gap:6px;background:var(--sky-soft);color:var(--sky-deep);border-radius:999px;padding:2px 12px;font-size:.85em;white-space:nowrap}
 .examples{width:100%;display:grid;gap:12px}
@@ -278,7 +278,7 @@ const ART={
 // 연습 게임 단어
 const WARM={w:'배',m:[['🍐','먹는 배'],['🚢','타는 배'],['@belly','신체 부위 배']]};
 // 본 게임 단어 (교안 순서)
-// 본 게임 20문제: 쉬움 → 중간 → 어려움 순서 (한글·영어 섞음)
+// 본 게임 20문제: 쉬움 → 중간 → 어려움 순서 (초등학생이 아는 낱말)
 const LEVELS={easy:{name:"쉬움",n:1},mid:{name:"중간",n:2},hard:{name:"어려움",n:3}};
 const ROUNDS=[
   // 쉬움: 한 글자, 그리기 쉬운 낱말
@@ -291,18 +291,18 @@ const ROUNDS=[
   {lv:"easy",w:"풀",m:[["🌿","자라는 풀","풀밭"],["@glue","붙이는 풀","딱풀"]]},
   // 중간: 두 글자 낱말과 헷갈리는 한 글자
   {lv:"mid",w:"다리",m:[["🦵","신체 다리","팔다리"],["🌉","건너는 다리","한강 다리"]]},
-  {lv:"mid",w:"Bat",m:[["🦇","박쥐","동물 bat"],["🏏","방망이","야구 bat"]]},
   {lv:"mid",w:"김",m:[["🍙","먹는 김","김밥"],["♨️","피어오르는 김","김이 나다"]]},
   {lv:"mid",w:"병",m:[["🍾","담는 병","유리병"],["🤒","아픈 병","병에 걸리다"]]},
-  {lv:"mid",w:"Ring",m:[["💍","반지","wedding ring"],["🔔","울리다","bells ring"]]},
-  {lv:"mid",w:"굴",m:[["🦪","먹는 굴","굴전"],["🕳️","땅속 굴","동굴"]]},
+  {lv:"mid",w:"벌",m:[["🐝","윙윙 벌","꿀벌"],["😣","받는 벌","벌을 서다"]]},
+  {lv:"mid",w:"줄",m:[["🪢","묶는 줄","줄넘기"],["🚶","서는 줄","줄을 서다"]]},
+  {lv:"mid",w:"가지",m:[["🍆","먹는 가지","가지볶음"],["🌳","나뭇가지","나무의 가지"]]},
   {lv:"mid",w:"새",m:[["🐦","날아다니는 새","참새"],["✨","새것","새 신발"]]},
-  // 어려움: 영어·움직임·느낌을 나타내는 낱말
-  {lv:"hard",w:"Fly",m:[["🪰","파리","곤충 fly"],["🕊️","날다","새가 fly"]]},
+  // 어려움: 움직임·느낌을 나타내는 낱말, 뜻이 여러 개인 낱말
   {lv:"hard",w:"절",m:[["🛕","절(사찰)","산속의 절"],["🙇","절하다","세배"]]},
-  {lv:"hard",w:"Watch",m:[["⌚","손목시계","a new watch"],["📺","보다","watch TV"]]},
-  {lv:"hard",w:"바람",m:[["🌬️","부는 바람","바람이 불다"],["🌠","바라는 일","소원"]]},
-  {lv:"hard",w:"Right",m:[["👉","오른쪽","turn right"],["✅","옳은, 맞는","That's right!"]]},
+  {lv:"hard",w:"못",m:[["🔨","박는 못","망치로 못 박기"],["🏞️","물이 고인 못","연못"]]},
+  {lv:"hard",w:"타다",m:[["🚲","올라 타다","자전거를 타다"],["🔥","불에 타다","장작이 타다"]]},
+  {lv:"hard",w:"세다",m:[["💪","힘이 세다","튼튼해요"],["🔢","숫자를 세다","하나, 둘, 셋"]]},
+  {lv:"hard",w:"짜다",m:[["🧂","맛이 짜다","소금"],["🧶","실로 짜다","목도리를 짜다"]]},
   {lv:"hard",w:"차다",m:[["⚽","발로 차다","공을 차다"],["🧊","차갑다","물이 차다"],["🥛","가득 차다","컵이 차다"]]},
 ];
 const GOAL=7;
