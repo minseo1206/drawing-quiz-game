@@ -115,7 +115,8 @@ h2{font-size:clamp(30px,5vw,48px)}
 .ex .arrow{font-family:var(--f-display);color:var(--sky-deep);font-size:22px}
 .exm{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
 .exi{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-display);font-size:clamp(17px,2.2vw,20px);background:var(--card);border-radius:999px;padding:6px 16px 6px 10px}
-.exi .em{font-family:var(--f-emoji);font-size:1.4em;line-height:1}
+.exi .em{font-family:var(--f-emoji);font-size:1.4em;line-height:1;display:inline-grid;place-items:center}
+.exi .em svg{width:1em;height:1em}
 .exm .or{font-family:var(--f-display);font-size:15px;color:var(--em)}
 .ex .sent{font-family:var(--f-display);font-size:clamp(18px,2.4vw,22px)}
 .reveal{border:2px solid var(--sky-deep);background:var(--card);border-radius:999px;padding:6px 18px;font-family:var(--f-display);font-size:17px}
@@ -141,6 +142,9 @@ h2{font-size:clamp(30px,5vw,48px)}
 
 /* round */
 .round-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px}
+.lvl{display:flex;gap:4px}
+.lvl i{width:12px;height:12px;border-radius:50%;background:var(--line)}
+.lvl i.on{background:var(--sky-deep)}
 .score{font-family:var(--f-display);font-size:16px;background:var(--butter);border-radius:999px;padding:6px 16px;display:inline-flex;align-items:center;gap:6px}
 .score .ico{width:1.2em;height:1.2em}
 .workbench{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;width:100%;align-items:stretch}
@@ -274,27 +278,40 @@ const ART={
 // 연습 게임 단어
 const WARM={w:'배',m:[['🍐','먹는 배'],['🚢','타는 배'],['@belly','신체 부위 배']]};
 // 본 게임 단어 (교안 순서)
+// 본 게임 20문제: 쉬움 → 중간 → 어려움 순서 (한글·영어 섞음)
+const LEVELS={easy:{name:"쉬움",n:1},mid:{name:"중간",n:2},hard:{name:"어려움",n:3}};
 const ROUNDS=[
-  {w:'밤',m:[['🌙','어두운 밤','밤하늘'],['🌰','먹는 밤','군밤']]},
-  {w:'눈',m:[['👀','보는 눈','얼굴의 눈'],['❄️','내리는 눈','눈사람']]},
-  {w:'Fly',m:[['🪰','파리','곤충 fly'],['🕊️','날다','새가 fly']]},
-  {w:'차',m:[['🚗','타는 차','자동차'],['🍵','마시는 차','녹차']]},
-  {w:'다리',m:[['🦵','신체 다리','팔다리'],['🌉','건너는 다리','한강 다리']]},
-  {w:'풀',m:[['🌿','자라는 풀','풀밭'],['@glue','붙이는 풀','딱풀']]},
-  {w:'Bat',m:[['🦇','박쥐','동물 bat'],['🏏','방망이','야구 bat']]},
-  {w:'Right',m:[['👉','오른쪽','turn right'],['✅','옳은, 맞는','That\'s right!']]},
-  {w:'달',m:[['🌕','하늘의 달','보름달'],['📅','날짜의 달','1년은 12달']]},
-  {w:'차다',m:[['⚽','발로 차다','공을 차다'],['🧊','차갑다','물이 차다'],['🥛','가득 차다','컵이 차다']]},
-  {w:'말',m:[['🐴','동물 말','말을 타다'],['💬','하는 말','말을 하다']]},
-  {w:'이',m:[['🦷','치아','이를 닦다'],['2️⃣','숫자 이','일, 이, 삼']]},
+  // 쉬움: 한 글자, 그리기 쉬운 낱말
+  {lv:"easy",w:"밤",m:[["🌙","어두운 밤","밤하늘"],["🌰","먹는 밤","군밤"]]},
+  {lv:"easy",w:"눈",m:[["👀","보는 눈","얼굴의 눈"],["❄️","내리는 눈","눈사람"]]},
+  {lv:"easy",w:"차",m:[["🚗","타는 차","자동차"],["🍵","마시는 차","녹차"]]},
+  {lv:"easy",w:"달",m:[["🌕","하늘의 달","보름달"],["📅","날짜의 달","1년은 12달"]]},
+  {lv:"easy",w:"말",m:[["🐴","동물 말","말을 타다"],["💬","하는 말","말을 하다"]]},
+  {lv:"easy",w:"이",m:[["🦷","치아","이를 닦다"],["2️⃣","숫자 이","일, 이, 삼"]]},
+  {lv:"easy",w:"풀",m:[["🌿","자라는 풀","풀밭"],["@glue","붙이는 풀","딱풀"]]},
+  // 중간: 두 글자 낱말과 헷갈리는 한 글자
+  {lv:"mid",w:"다리",m:[["🦵","신체 다리","팔다리"],["🌉","건너는 다리","한강 다리"]]},
+  {lv:"mid",w:"Bat",m:[["🦇","박쥐","동물 bat"],["🏏","방망이","야구 bat"]]},
+  {lv:"mid",w:"김",m:[["🍙","먹는 김","김밥"],["♨️","피어오르는 김","김이 나다"]]},
+  {lv:"mid",w:"병",m:[["🍾","담는 병","유리병"],["🤒","아픈 병","병에 걸리다"]]},
+  {lv:"mid",w:"Ring",m:[["💍","반지","wedding ring"],["🔔","울리다","bells ring"]]},
+  {lv:"mid",w:"굴",m:[["🦪","먹는 굴","굴전"],["🕳️","땅속 굴","동굴"]]},
+  {lv:"mid",w:"새",m:[["🐦","날아다니는 새","참새"],["✨","새것","새 신발"]]},
+  // 어려움: 영어·움직임·느낌을 나타내는 낱말
+  {lv:"hard",w:"Fly",m:[["🪰","파리","곤충 fly"],["🕊️","날다","새가 fly"]]},
+  {lv:"hard",w:"절",m:[["🛕","절(사찰)","산속의 절"],["🙇","절하다","세배"]]},
+  {lv:"hard",w:"Watch",m:[["⌚","손목시계","a new watch"],["📺","보다","watch TV"]]},
+  {lv:"hard",w:"바람",m:[["🌬️","부는 바람","바람이 불다"],["🌠","바라는 일","소원"]]},
+  {lv:"hard",w:"Right",m:[["👉","오른쪽","turn right"],["✅","옳은, 맞는","That's right!"]]},
+  {lv:"hard",w:"차다",m:[["⚽","발로 차다","공을 차다"],["🧊","차갑다","물이 차다"],["🥛","가득 차다","컵이 차다"]]},
 ];
 const GOAL=7;
 // 규칙 화면 예시 문제 (본 게임에 없는 단어)
 const EXAMPLES=[
-  {w:"공",m:[["⚽","차는 공"],["0️⃣","숫자 공(0)"]]},
+  {w:"배",m:[["🍐","먹는 배"],["🚢","타는 배"],["@belly","신체 부위 배"]]},
   {w:"쓰다",m:[["✏️","글을 쓰다"],["🧢","모자를 쓰다"],["☕","맛이 쓰다"]]},
 ];
-const exHTML=e=>`<span class="exw">${e.w}</span><span class="arrow">→</span><span class="exm">${e.m.map(([p,l])=>`<span class="exi"><span class="em">${p}</span>${l}</span>`).join("<span class=\"or\">OR</span>")}</span>`;
+const exHTML=e=>`<span class="exw">${e.w}</span><span class="arrow">→</span><span class="exm">${e.m.map(([p,l])=>`<span class="exi"><span class="em">${pic(p)}</span>${l}</span>`).join("<span class=\"or\">OR</span>")}</span>`;
 /* 체험 모드(?trial=1): 2번 문제까지만 풀고 안내 화면으로 끝남 */
 const TRIAL=new URLSearchParams(location.search).has('trial');
 const roundIdx=()=>TRIAL?[0,1]:ROUNDS.map((_,k)=>k);
@@ -331,7 +348,7 @@ const josa=w=>{const c=w.charCodeAt(w.length-1)-0xAC00;return c>=0&&c<=11171?(c%
 
 const VIEWS={
   title:()=>`<div class="screen title-wrap">
-    <div class="eq" aria-label="배는 먹는 배 또는 타는 배 또는 신체 부위 배"><span class="tl">배</span><span>=</span><span class="tl v em">🍐</span><span class="or">OR</span><span class="tl v em">🚢</span><span class="or">OR</span><span class="tl v em">${ART.belly}</span></div>
+    <div class="eq" aria-label="공은 차는 공 또는 숫자 공"><span class="tl">공</span><span>=</span><span class="tl v em">⚽</span><span class="or">OR</span><span class="tl v em">0️⃣</span></div>
     <h1 class="big-title"><span class="hl">동상이몽</span><br><span>그림 퀴즈</span></h1>
     <button class="start" type="button" data-go="1">게임 시작</button>
   </div>`,
@@ -373,7 +390,7 @@ const VIEWS={
   ready:()=>`<div class="screen">
     ${memo('자, 이제 본격적으로<br>게임을 시작할게요!')}
     <div class="goal"><span class="sparkle">✨</span>${GOAL}점 이상 모으면 오늘의 퀘스트 complete!!<span class="sparkle">✨</span></div>
-    <p class="sub">${TRIAL?'체험은 2문제만 할 수 있어요':`모두 ${ROUNDS.length}문제 · 성공하면 1점`}</p>
+    <p class="sub">${TRIAL?'체험은 2문제만 할 수 있어요':`모두 ${ROUNDS.length}문제 · 쉬움 ${ROUNDS.filter(x=>x.lv==='easy').length} → 중간 ${ROUNDS.filter(x=>x.lv==='mid').length} → 어려움 ${ROUNDS.filter(x=>x.lv==='hard').length} · 성공하면 1점`}</p>
   </div>`,
 
   trialEnd:()=>`<div class="screen">
@@ -399,7 +416,7 @@ function roundView(k){
   const practice=k<0, r=practice?WARM:ROUNDS[k], ids=roundIdx(), rev=S.rev[k];
   const head=practice
     ?`<span class="eyebrow with-ico">${ico('dumbbell')}연습 게임</span>`
-    :`<span class="eyebrow">라운드 ${ids.indexOf(k)+1} / ${ids.length}</span><span class="score">${ico('star')}${score()}점</span>`;
+    :`<span class="eyebrow">${LEVELS[r.lv].name} · 라운드 ${ids.indexOf(k)+1} / ${ids.length}</span><span class="lvl" aria-label="난이도 ${LEVELS[r.lv].n}단계">${[1,2,3].map(n=>`<i class="${n<=LEVELS[r.lv].n?'on':''}"></i>`).join('')}</span><span class="score">${ico('star')}${score()}점</span>`;
   return `<div class="screen">
     <div class="round-head">${head}</div>
     <div class="workbench">
